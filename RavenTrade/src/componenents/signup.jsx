@@ -35,7 +35,7 @@ const signup = () => {
               Sign up
             </Heading>
             <Text fontSize={"lg"} color={"gray.600"}>
-              to start exchanging your next item ✌️
+              to exchagne your first item ✌️
             </Text>
           </Stack>
           <Box rounded={"lg"} boxShadow={"xl"} p={8}>
