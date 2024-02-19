@@ -26,7 +26,7 @@ const home = () => {
             <Text
             color={'#418689'}
             >
-              Exchange anything and Everything
+              Exchange anything and everything
             </Text>
             {/* <br />{" "} */}
             <Text color={"#D67567"} as={"span"}>Only On
