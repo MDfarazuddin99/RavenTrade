@@ -6,14 +6,14 @@ import {
   Stack,
   Text,
   useBreakpointValue,
-  Link
+  Link,
 } from "@chakra-ui/react";
 import homepage from "../assets/homepage.png";
 import { NavLink, useNavigate } from "react-router-dom";
 
-const home = () => {
-    const navigateTo = useNavigate();
-    
+const hero = () => {
+  const navigateTo = useNavigate();
+
   const handleClick = (newPath) => {
     console.log("button pressed");
     navigateTo(newPath);
@@ -23,13 +23,10 @@ const home = () => {
       <Flex p={8} flex={1} align={"center"} justify={"center"}>
         <Stack spacing={6} w={"full"} maxW={"lg"}>
           <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}>
-            <Text
-            color={'#418689'}
-            >
-              Exchange anything and everything
-            </Text>
+            <Text color={"#418689"}>Exchange anything and everything</Text>
             {/* <br />{" "} */}
-            <Text color={"#D67567"} as={"span"}>Only On
+            <Text color={"#D67567"} as={"span"}>
+              Only On
               <Text color={"#E4A548"}>RavenTrade</Text>
             </Text>{" "}
           </Heading>
@@ -59,4 +56,4 @@ const home = () => {
   );
 };
 
-export default home;
+export default hero;
