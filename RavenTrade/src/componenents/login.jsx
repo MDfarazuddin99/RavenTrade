@@ -11,18 +11,24 @@ import {
   Text,
   useColorModeValue,
   Image,
-  Link
+  Link,
 } from "@chakra-ui/react";
 
 import { useState } from "react";
 
 import homepage from "../assets/homepage.png";
 
-import {NavLink} from 'react-router-dom';
+
+import { NavLink, useNavigate } from "react-router-dom";
 
 const login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigateTo = useNavigate();
 
+  const handleClick = (newPath) => {
+    console.log("button pressed");
+    navigateTo(newPath);
+  };
   return (
     <Stack minH={"100vh"} direction={{ base: "column", md: "row" }}>
       <Flex p={8} flex={1} align={"center"} justify={"center"}>
@@ -60,11 +66,17 @@ const login = () => {
                   _hover={{
                     bg: "blue.500",
                   }}
+                  onClick={()=>handleClick('/home')}
                 >
                   Sign in
                 </Button>
-                <Stack>                
-                  <Text align={"center"}>Dont Have Account? <NavLink to="/signup"><Link color={"blue.400"}>Register</Link></NavLink></Text>{" "}
+                <Stack>
+                  <Text align={"center"}>
+                    Dont Have Account?{" "}
+                    <NavLink to="/signup">
+                      <Link color={"blue.400"}>Register</Link>
+                    </NavLink>
+                  </Text>{" "}
                 </Stack>
               </Stack>
             </Stack>
