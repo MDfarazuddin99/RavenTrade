@@ -24,7 +24,7 @@ const ProductCard = () => {
         boxShadow={"xl"}
         rounded={"lg"}
         pos={"relative"}
-        zIndex={1}
+        zIndex={9}
       >
         <Box
           rounded={"lg"}

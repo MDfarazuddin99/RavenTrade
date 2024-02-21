@@ -1,6 +1,6 @@
-import { Route, Routes } from "react-router-dom";
-import signup from "./componenents/signup";
-import login from "./componenents/login";
+import { Route, Routes, Navigate, Outlet } from "react-router-dom";
+import Signup from "./componenents/signup";
+import Login from "./componenents/login";
 
 import Hero from "./componenents/Hero";
 import Home from "./componenents/Home";
@@ -9,22 +9,74 @@ import Navbar from "./componenents/Navbar";
 import Footer from "./componenents/Footer";
 import MarketPlace from "./componenents/MarketPlace";
 import AddItem from "./componenents/AddItem";
+import SidebarWithHeader from "./componenents/SidebarWithHeader";
 
 function App() {
+  const isAuthenticated = true;
+
   return (
     <>
-      <Navbar />
+      <Routes>
+        {/* Public routes */}
+        <Route path="/" element={<Outlet />}>
+          <Route index element={<Hero />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="login" element={<Login />} />
+        </Route>
 
-        <Routes>
-          <Route exact path="/" Component={Hero}></Route>
-          <Route exact path="/signup" Component={signup}></Route>
-          <Route exact path="/login" Component={login}></Route>
-          <Route exact path="/home" Component={Home}></Route>
-          <Route exact path="/myproducts" Component={Products}></Route>
-          <Route exact path="/marketplace" Component={MarketPlace}></Route>
-          <Route exact path="/additem" Component={AddItem}></Route>
-        </Routes>
-      <Footer />
+        {/* Private routes */}
+        <Route path="/" element={<Outlet />}>
+          <Route
+            path="home"
+            element={
+              isAuthenticated ? (
+                <SidebarWithHeader childComponent={<Home/>}>
+    
+                </SidebarWithHeader>
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="myproducts"
+            element={
+              isAuthenticated ? (
+                <SidebarWithHeader
+                  childComponent={<Products />}
+                ></SidebarWithHeader>
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="marketplace"
+            element={
+              isAuthenticated ? (
+                <SidebarWithHeader childComponent={<MarketPlace />}>
+                  {" "}
+                </SidebarWithHeader>
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route
+            path="additem"
+            element={
+              isAuthenticated ? (
+                <SidebarWithHeader
+                  childComponent={<AddItem />}
+                ></SidebarWithHeader>
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+        </Route>
+      </Routes>
+      {/* <Footer /> */}
     </>
   );
 }

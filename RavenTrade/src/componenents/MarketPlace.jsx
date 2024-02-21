@@ -12,10 +12,16 @@ const MarketPlace = () => {
     zoom: 11,
   };
   return (
-    <Flex dir="row" mb={10} bg="gray.50">
-              <Box pt={5} px={1} w="70%" height={"100vh"}>
-        <Box h="100vh" w="100%" bg={'blue.100'} display={'flex'} justifyContent={'center'}>
-            <Heading>Near By Available Items</Heading>
+    <Flex dir="row"  bg="gray.50">
+      <Box pt={5} px={1} w="70%" height={"100vh"}>
+        <Box
+          h="100vh"
+          w="100%"
+          bg={"blue.100"}
+          display={"flex"}
+          justifyContent={"center"}
+        >
+          <Heading>Near By Available Items</Heading>
         </Box>
       </Box>
       <Box pt={5} px={1} w="30%">
@@ -35,7 +41,6 @@ const MarketPlace = () => {
           </GoogleMapReact>
         </div>
       </Box>
-
     </Flex>
   );
 };

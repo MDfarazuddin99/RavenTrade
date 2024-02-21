@@ -21,7 +21,7 @@ const Products = () => {
       bg="gray.50"
     >
       <Heading pt={10}>My Products</Heading>
-      <SimpleGrid columns={{ base: 1, md: 4 }} spacing={4} px={20}>
+      <SimpleGrid columns={{ base: 1, md: 4 }} spacing={4} px={10}>
         {/* Replace the following with your card components */}
 
         <ProductCard />
