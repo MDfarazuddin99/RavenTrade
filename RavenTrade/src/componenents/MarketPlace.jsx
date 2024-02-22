@@ -21,9 +21,11 @@ import {
 } from "@chakra-ui/react";
 
 import productImage from "../assets/loginpage.png";
+
 import GoogleMapReact from "google-map-react";
 import mapMarkerIcon from "../assets/map_marker.png";
 import itemMarkerIcon from "../assets/item_marker.png";
+import { Circle } from "react-google-maps";
 
 const Marker = () => (
   <div
@@ -89,17 +91,42 @@ const MarketPlace = () => {
 
   const radiusInMiles = 5;
   const numLocations = 5;
-  const locations = generateRandomLocations(
-    defaultProps.center.lat,
-    defaultProps.center.lng,
-    radiusInMiles,
-    numLocations
-  );
+  // const locations = generateRandomLocations(
+  //   defaultProps.center.lat,
+  //   defaultProps.center.lng,
+  //   radiusInMiles,
+  //   numLocations
+  // );
+  const locations = [
+    {
+      lat: 37.368364451061005,
+      lng: -121.94735298397816,
+    },
 
+    {
+      lat: 37.38016597178145,
+      lng: -121.88055391963168,
+    },
+
+    {
+      lat: 37.33004548382843,
+      lng: -121.88502699103763,
+    },
+
+    {
+      lat: 37.32980863282362,
+      lng: -121.84141438130071,
+    },
+
+    {
+      lat: 37.3790094462222,
+      lng: -121.85672023683446,
+    },
+  ];
   console.log(locations);
 
   return (
-    <Flex bg="gray.50" h='auto'>
+    <Flex bg="gray.50" h="auto" mb={10}>
       <Box pt={5} px={1} w="70%">
         <Box
           h="100vh"
@@ -125,7 +152,7 @@ const MarketPlace = () => {
             </FormControl>
           </Box>
 
-          <Flex flexDir={'column'}>
+          <Flex flexDir={"column"} overflowY="auto">
             <Card
               direction={{ base: "column", sm: "row" }}
               // overflow="hidden"

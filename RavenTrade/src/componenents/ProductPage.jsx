@@ -15,7 +15,9 @@ const ProductPage = () => {
 
   return (
     <Flex dir="row" h="100vh" w="full" bg="blue.50">
-      <Box w="70%"></Box>
+      <Box w="70%">
+        
+      </Box>
       <Box w="30%">
         <div style={{ height: "100vh", width: "100%" }}>
           <GoogleMapReact
