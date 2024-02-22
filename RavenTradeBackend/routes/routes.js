@@ -56,9 +56,40 @@ router.get('/get/:collection', async (req, res) => {
             .all();
         res.status(201).json({items: itemsWithinRadius});
     } catch (error) {
-        console.log("Error Occurred While Creating Item", error)
+        console.log("Error getting Items:", error)
     }
 
+})
+
+
+router.delete('/deleteItem', async (req, res) => {
+    try {
+        session = req.store.openSession();
+        await session.delete(req.body.itemId);
+        await session.saveChanges();
+        res.status(201).json({success: true});
+    } catch (error) {
+        console.log("Error deleting Item: ", req.body.itemId)
+    }
+})
+
+
+router.put('/updateItem', async (req, res) => {
+    try {
+        session = req.store.openSession();
+        let item = await session.load(req.body.id);
+        if (item) {
+            Object.assign(item, req.body);
+            await session.saveChanges();
+            console.log('Document updated successfully.');
+        } else {
+            console.log('Document not found.');
+        }
+        await session.saveChanges();
+        res.status(201).json({success: true});
+    } catch (error) {
+        console.log("Error Updating Item: ", req.body.itemId);
+    }
 })
 
 module.exports = router
