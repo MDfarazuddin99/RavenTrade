@@ -10,18 +10,21 @@ import {
   Stack,
   Button,
   Heading,
+  Center,
   Text,
   useColorModeValue,
   Link,
   Image,
 } from "@chakra-ui/react";
+import { FcGoogle } from 'react-icons/fc'
+
 
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 
 import homepage from "../assets/homepage.png";
 
-import {NavLink} from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 
 const signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -89,9 +92,18 @@ const signup = () => {
               </Stack>
               <Stack pt={6}>
                 <Text align={"center"}>
-                  Already a user? <NavLink to="/login"><Link color={"blue.400"}>Login</Link></NavLink>
+                  Already a user?{" "}
+                  <NavLink to="/login">
+                    <Link color={"blue.400"}>Login</Link>
+                  </NavLink>
                 </Text>
               </Stack>
+              <Text>Else</Text>
+              <Button w={"full"} variant={"outline"} leftIcon={<FcGoogle />}>
+                <Center>
+                  <Text>Sign in with Google</Text>
+                </Center>
+              </Button>
             </Stack>
           </Box>
         </Stack>
