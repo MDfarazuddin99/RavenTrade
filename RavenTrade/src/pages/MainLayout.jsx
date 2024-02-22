@@ -32,7 +32,6 @@ import {
 
 import { NavLink } from "react-router-dom";
 
-import Products from "./Products.jsx";
 import Footer from "../componenents/Footer.jsx";
 
 const LinkItems = [
@@ -84,10 +83,10 @@ const SidebarContent = ({ onClose, ...rest }) => {
   return (
     <Box
       transition="3s ease"
-      //   bg={useColorModeValue("white", "gray.900")}
-      bg="transparent"
-      //   borderRight="1px"
-      //   borderRightColor={useColorModeValue("gray.200", "gray.700")}
+        bg={useColorModeValue("white", "gray.900")}
+      // bg="transparent"
+        borderRight="1px"
+        borderRightColor={useColorModeValue("gray.200", "gray.700")}
       w={{ base: "full", md: 60 }}
       pos="fixed"
       h="full"
@@ -122,7 +121,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
       px={{ base: 4, md: 4 }}
       height="20"
       alignItems="center"
-      bg="#D3C9B8"
+      bg="white"
       borderBottomWidth="1px"
       borderBottomColor={useColorModeValue("gray.200", "gray.700")}
       justifyContent={{ base: "space-between", md: "flex-end" }}
@@ -205,11 +204,12 @@ const MobileNav = ({ onOpen, ...rest }) => {
 
 export { MobileNav };
 
+
 const MainLayout = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box minH="100vh" bg="#ADB9A6">
+    <Box minH="100vh" bg="white">
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}

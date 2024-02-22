@@ -14,6 +14,12 @@ import {
   RadioGroup,
   Stack,
   Text,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+  Input,
 } from "@chakra-ui/react";
 
 import GoogleMapReact from "google-map-react";
@@ -21,32 +27,32 @@ import mapMarkerIcon from "../assets/map_marker.png";
 import itemMarkerIcon from "../assets/item_marker.png";
 
 const Marker = () => (
-    <div
-        style={{
-          width: "15px",
-          height: "20px",
-          backgroundImage: `url(${mapMarkerIcon})`,
-          backgroundSize: "cover",
-        }}
-    ></div>
+  <div
+    style={{
+      width: "15px",
+      height: "20px",
+      backgroundImage: `url(${mapMarkerIcon})`,
+      backgroundSize: "cover",
+    }}
+  ></div>
 );
 
 const ItemMarker = () => (
-    <div
-        style={{
-          width: "15px",
-          height: "20px",
-          backgroundImage: `url(${itemMarkerIcon})`,
-          backgroundSize: "cover",
-        }}
-    ></div>
+  <div
+    style={{
+      width: "15px",
+      height: "20px",
+      backgroundImage: `url(${itemMarkerIcon})`,
+      backgroundSize: "cover",
+    }}
+  ></div>
 );
 
 const generateRandomLocations = (
-    centerLat,
-    centerLng,
-    radius,
-    numLocations
+  centerLat,
+  centerLng,
+  radius,
+  numLocations
 ) => {
   const locations = [];
 
@@ -119,242 +125,254 @@ const MarketPlace = () => {
   console.log(locations);
 
   return (
-      <Flex bg="gray.50" h="auto" mb={10}>
-        <Box pt={5} px={1} w="70%">
-          <Box
-              h="100vh"
-              w="full"
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-          >
-            <Heading mb={4}>Near By Available Items</Heading>
+    <Flex bg="gray.50" h="auto" mb={10}>
+      <Box pt={5} px={1} w="70%">
+        <Box
+          h="100vh"
+          w="full"
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+        >
+          <Heading mb={4}>Near By Available Items</Heading>
 
-            <Box mb={5}>
-              <FormControl as="fieldset">
-                <FormLabel as="legend">Favorite Naruto Character</FormLabel>
-                <RadioGroup defaultValue="all">
-                  <HStack spacing="50px">
-                    <Radio value="clothes">Clothes</Radio>
-                    <Radio value="electronics">Electronics</Radio>
-                    <Radio value="furniture">Furniture</Radio>
-                    <Radio value="giftcards">Gift Cards</Radio>
-                    <Radio value="all">Sage of the six Paths</Radio>
-                  </HStack>
-                </RadioGroup>
-              </FormControl>
-            </Box>
-
-            <Flex flexDir={"column"} overflowY="auto">
-              <Card
-                  direction={{ base: "column", sm: "row" }}
-                  // overflow="hidden"
-                  variant="outline"
-                  mb={5}
-              >
-                <Image
-                    objectFit="cover"
-                    maxW={{ base: "100%", sm: "200px" }}
-                    src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-                    alt="Caffe Latte"
-                />
-
-                <Stack>
-                  <CardBody>
-                    <Heading size="md">The perfect latte</Heading>
-
-                    <Text py="2">
-                      Caffè latte is a coffee beverage of Italian origin made with
-                      espresso and steamed milk.
-                    </Text>
-                  </CardBody>
-
-                  <CardFooter>
-                    <Button variant="solid" colorScheme="blue">
-                      View Details
-                    </Button>
-                  </CardFooter>
-                </Stack>
-              </Card>
-
-              <Card
-                  direction={{ base: "column", sm: "row" }}
-                  // overflow="hidden"
-                  variant="outline"
-                  mb={5}
-              >
-                <Image
-                    objectFit="cover"
-                    maxW={{ base: "100%", sm: "200px" }}
-                    src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-                    alt="Caffe Latte"
-                />
-
-                <Stack>
-                  <CardBody>
-                    <Heading size="md">The perfect latte</Heading>
-
-                    <Text py="2">
-                      Caffè latte is a coffee beverage of Italian origin made with
-                      espresso and steamed milk.
-                    </Text>
-                  </CardBody>
-
-                  <CardFooter>
-                    <Button variant="solid" colorScheme="blue">
-                      View Details
-                    </Button>
-                  </CardFooter>
-                </Stack>
-              </Card>
-
-              <Card
-                  direction={{ base: "column", sm: "row" }}
-                  // overflow="hidden"
-                  variant="outline"
-                  mb={5}
-              >
-                <Image
-                    objectFit="cover"
-                    maxW={{ base: "100%", sm: "200px" }}
-                    src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-                    alt="Caffe Latte"
-                />
-
-                <Stack>
-                  <CardBody>
-                    <Heading size="md">The perfect latte</Heading>
-
-                    <Text py="2">
-                      Caffè latte is a coffee beverage of Italian origin made with
-                      espresso and steamed milk.
-                    </Text>
-                  </CardBody>
-
-                  <CardFooter>
-                    <Button variant="solid" colorScheme="blue">
-                      View Details
-                    </Button>
-                  </CardFooter>
-                </Stack>
-              </Card>
-
-              <Card
-                  direction={{ base: "column", sm: "row" }}
-                  // overflow="hidden"
-                  variant="outline"
-                  mb={5}
-              >
-                <Image
-                    objectFit="cover"
-                    maxW={{ base: "100%", sm: "200px" }}
-                    src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-                    alt="Caffe Latte"
-                />
-
-                <Stack>
-                  <CardBody>
-                    <Heading size="md">The perfect latte</Heading>
-
-                    <Text py="2">
-                      Caffè latte is a coffee beverage of Italian origin made with
-                      espresso and steamed milk.
-                    </Text>
-                  </CardBody>
-
-                  <CardFooter>
-                    <Button variant="solid" colorScheme="blue">
-                      View Details
-                    </Button>
-                  </CardFooter>
-                </Stack>
-              </Card>
-
-              <Card
-                  direction={{ base: "column", sm: "row" }}
-                  // overflow="hidden"
-                  variant="outline"
-                  mb={5}
-              >
-                <Image
-                    objectFit="cover"
-                    maxW={{ base: "100%", sm: "200px" }}
-                    src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-                    alt="Caffe Latte"
-                />
-
-                <Stack>
-                  <CardBody>
-                    <Heading size="md">The perfect latte</Heading>
-
-                    <Text py="2">
-                      Caffè latte is a coffee beverage of Italian origin made with
-                      espresso and steamed milk.
-                    </Text>
-                  </CardBody>
-
-                  <CardFooter>
-                    <Button variant="solid" colorScheme="blue">
-                      View Details
-                    </Button>
-                  </CardFooter>
-                </Stack>
-              </Card>
-
-              <Card
-                  direction={{ base: "column", sm: "row" }}
-                  // overflow="hidden"
-                  variant="outline"
-                  mb={5}
-              >
-                <Image
-                    objectFit="cover"
-                    maxW={{ base: "100%", sm: "200px" }}
-                    src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-                    alt="Caffe Latte"
-                />
-
-                <Stack>
-                  <CardBody>
-                    <Heading size="md">The perfect latte</Heading>
-
-                    <Text py="2">
-                      Caffè latte is a coffee beverage of Italian origin made with
-                      espresso and steamed milk.
-                    </Text>
-                  </CardBody>
-
-                  <CardFooter>
-                    <Button variant="solid" colorScheme="blue">
-                      View Details
-                    </Button>
-                  </CardFooter>
-                </Stack>
-              </Card>
-            </Flex>
+          <Box mb={5} w="95%">
+            <FormControl as="fieldset">
+              <FormLabel as="legend">Favorite Naruto Character</FormLabel>
+              <RadioGroup defaultValue="all">
+                <HStack spacing="50px">
+                  <Radio value="clothes">Clothes</Radio>
+                  <Radio value="electronics">Electronics</Radio>
+                  <Radio value="furniture">Furniture</Radio>
+                  <Radio value="giftcards">Gift Cards</Radio>
+                  <Radio value="all"> All</Radio>
+                </HStack>
+              </RadioGroup>
+              <Flex mt={2}>
+                <FormLabel>Search</FormLabel>
+                <Input placeholder="First name" w="70%" />
+                <FormLabel marginLeft="2">Radius (Miles)</FormLabel>
+                <NumberInput max={10} min={0} w="30%" h="40px" >
+                  <NumberInputField />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+              </Flex>
+            </FormControl>
           </Box>
-        </Box>
 
-        <Box pt={5} px={1} w="30%">
-          <div style={{ height: "100vh", width: "100%" }}>
-            <GoogleMapReact
-                bootstrapURLKeys={{
-                  key: "AIzaSyBdaYJxlPYKRLKHR7KVSOG4yhNvW97YVGs",
-                }}
-                defaultCenter={defaultProps.center}
-                defaultZoom={defaultProps.zoom}
+          <Flex flexDir={"column"} overflowY="auto">
+            <Card
+              direction={{ base: "column", sm: "row" }}
+              // overflow="hidden"
+              variant="outline"
+              mb={5}
             >
-              <Marker
-                  lat={defaultProps.center.lat}
-                  lng={defaultProps.center.lng}
+              <Image
+                objectFit="cover"
+                maxW={{ base: "100%", sm: "200px" }}
+                src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+                alt="Caffe Latte"
               />
-              {locations.map((loc, idx) => {
-                return <ItemMarker key={idx} lat={loc.lat} lng={loc.lng} />;
-              })}
-            </GoogleMapReact>
-          </div>
+
+              <Stack>
+                <CardBody>
+                  <Heading size="md">The perfect latte</Heading>
+
+                  <Text py="2">
+                    Caffè latte is a coffee beverage of Italian origin made with
+                    espresso and steamed milk.
+                  </Text>
+                </CardBody>
+
+                <CardFooter>
+                  <Button variant="solid" colorScheme="blue">
+                    View Details
+                  </Button>
+                </CardFooter>
+              </Stack>
+            </Card>
+
+            <Card
+              direction={{ base: "column", sm: "row" }}
+              // overflow="hidden"
+              variant="outline"
+              mb={5}
+            >
+              <Image
+                objectFit="cover"
+                maxW={{ base: "100%", sm: "200px" }}
+                src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+                alt="Caffe Latte"
+              />
+
+              <Stack>
+                <CardBody>
+                  <Heading size="md">The perfect latte</Heading>
+
+                  <Text py="2">
+                    Caffè latte is a coffee beverage of Italian origin made with
+                    espresso and steamed milk.
+                  </Text>
+                </CardBody>
+
+                <CardFooter>
+                  <Button variant="solid" colorScheme="blue">
+                    View Details
+                  </Button>
+                </CardFooter>
+              </Stack>
+            </Card>
+
+            <Card
+              direction={{ base: "column", sm: "row" }}
+              // overflow="hidden"
+              variant="outline"
+              mb={5}
+            >
+              <Image
+                objectFit="cover"
+                maxW={{ base: "100%", sm: "200px" }}
+                src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+                alt="Caffe Latte"
+              />
+
+              <Stack>
+                <CardBody>
+                  <Heading size="md">The perfect latte</Heading>
+
+                  <Text py="2">
+                    Caffè latte is a coffee beverage of Italian origin made with
+                    espresso and steamed milk.
+                  </Text>
+                </CardBody>
+
+                <CardFooter>
+                  <Button variant="solid" colorScheme="blue">
+                    View Details
+                  </Button>
+                </CardFooter>
+              </Stack>
+            </Card>
+
+            <Card
+              direction={{ base: "column", sm: "row" }}
+              // overflow="hidden"
+              variant="outline"
+              mb={5}
+            >
+              <Image
+                objectFit="cover"
+                maxW={{ base: "100%", sm: "200px" }}
+                src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+                alt="Caffe Latte"
+              />
+
+              <Stack>
+                <CardBody>
+                  <Heading size="md">The perfect latte</Heading>
+
+                  <Text py="2">
+                    Caffè latte is a coffee beverage of Italian origin made with
+                    espresso and steamed milk.
+                  </Text>
+                </CardBody>
+
+                <CardFooter>
+                  <Button variant="solid" colorScheme="blue">
+                    View Details
+                  </Button>
+                </CardFooter>
+              </Stack>
+            </Card>
+
+            <Card
+              direction={{ base: "column", sm: "row" }}
+              // overflow="hidden"
+              variant="outline"
+              mb={5}
+            >
+              <Image
+                objectFit="cover"
+                maxW={{ base: "100%", sm: "200px" }}
+                src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+                alt="Caffe Latte"
+              />
+
+              <Stack>
+                <CardBody>
+                  <Heading size="md">The perfect latte</Heading>
+
+                  <Text py="2">
+                    Caffè latte is a coffee beverage of Italian origin made with
+                    espresso and steamed milk.
+                  </Text>
+                </CardBody>
+
+                <CardFooter>
+                  <Button variant="solid" colorScheme="blue">
+                    View Details
+                  </Button>
+                </CardFooter>
+              </Stack>
+            </Card>
+
+            <Card
+              direction={{ base: "column", sm: "row" }}
+              // overflow="hidden"
+              variant="outline"
+              mb={5}
+            >
+              <Image
+                objectFit="cover"
+                maxW={{ base: "100%", sm: "200px" }}
+                src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+                alt="Caffe Latte"
+              />
+
+              <Stack>
+                <CardBody>
+                  <Heading size="md">The perfect latte</Heading>
+
+                  <Text py="2">
+                    Caffè latte is a coffee beverage of Italian origin made with
+                    espresso and steamed milk.
+                  </Text>
+                </CardBody>
+
+                <CardFooter>
+                  <Button variant="solid" colorScheme="blue">
+                    View Details
+                  </Button>
+                </CardFooter>
+              </Stack>
+            </Card>
+          </Flex>
         </Box>
-      </Flex>
+      </Box>
+
+      <Box pt={5} px={1} w="30%">
+        <div style={{ height: "100vh", width: "100%" }}>
+          <GoogleMapReact
+            bootstrapURLKeys={{
+              key: "AIzaSyBdaYJxlPYKRLKHR7KVSOG4yhNvW97YVGs",
+            }}
+            defaultCenter={defaultProps.center}
+            defaultZoom={defaultProps.zoom}
+          >
+            <Marker
+              lat={defaultProps.center.lat}
+              lng={defaultProps.center.lng}
+            />
+            {locations.map((loc, idx) => {
+              return <ItemMarker key={idx} lat={loc.lat} lng={loc.lng} />;
+            })}
+          </GoogleMapReact>
+        </div>
+      </Box>
+    </Flex>
   );
 };
 
