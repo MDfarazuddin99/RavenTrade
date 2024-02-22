@@ -37,8 +37,7 @@ router.post('/createItem', async (req, res) => {
     }
 })
 
-
-router.post('/get/:collection', async (req, res) => {
+router.get('/get/:collection', async (req, res) => {
 
     try {
         session = req.store.openSession();
