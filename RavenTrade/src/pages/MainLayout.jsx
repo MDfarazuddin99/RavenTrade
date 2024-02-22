@@ -32,8 +32,8 @@ import {
 
 import { NavLink } from "react-router-dom";
 
-import Products from "./Products";
-import Footer from "./Footer";
+import Products from "./Products.jsx";
+import Footer from "../componenents/Footer.jsx";
 
 const LinkItems = [
   { name: "My Products", icon: FiHome, link: "/myproducts" },
@@ -205,7 +205,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
 
 export { MobileNav };
 
-const SidebarWithHeader = (props) => {
+const MainLayout = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -239,4 +239,4 @@ const SidebarWithHeader = (props) => {
   );
 };
 
-export default SidebarWithHeader;
+export default MainLayout;

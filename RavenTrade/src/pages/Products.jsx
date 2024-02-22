@@ -1,6 +1,6 @@
 import { Flex, Box, Heading, SimpleGrid, Button } from "@chakra-ui/react";
 
-import ProductCard from "./ProductCard";
+import ProductCard from "../componenents/ProductCard.jsx";
 
 import { NavLink, useNavigate } from "react-router-dom";
 
