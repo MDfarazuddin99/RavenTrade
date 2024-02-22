@@ -10,12 +10,21 @@ import {
 
 import img from "../assets/homepage.png";
 
+import { useNavigate } from "react-router-dom";
+
 const IMAGE = img;
 
 const ProductCard = () => {
+  const navigateTo = useNavigate();
+
+  const handleClick = (newPath) => {
+    console.log("button pressed");
+    navigateTo(newPath);
+  };
   return (
-    <Center py={12} >
+    <Center py={12}>
       <Box
+        onClick={() => handleClick("/product")}
         role={"group"}
         p={6}
         maxW={"330px"}

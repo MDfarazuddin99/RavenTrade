@@ -11,6 +11,7 @@ import MarketPlace from "./componenents/MarketPlace";
 import AddItem from "./componenents/AddItem";
 import SidebarWithHeader from "./componenents/SidebarWithHeader";
 
+import ProductPage from "./componenents/ProductPage"; 
 function App() {
   const isAuthenticated = true;
 
@@ -23,7 +24,7 @@ function App() {
           <Route path="signup" element={<Signup />} />
           <Route path="login" element={<Login />} />
         </Route>
-
+        
         {/* Private routes */}
         <Route path="/" element={<Outlet />}>
           <Route
@@ -38,18 +39,31 @@ function App() {
               )
             }
           />
+
           <Route
             path="myproducts"
             element={
               isAuthenticated ? (
                 <SidebarWithHeader
-                  childComponent={<Products />}
+                  childComponent={<Products/>}
                 ></SidebarWithHeader>
               ) : (
                 <Navigate to="/login" />
               )
             }
           />
+          <Route
+            path="product"
+            element={
+              isAuthenticated ? (
+                <SidebarWithHeader childComponent={<ProductPage/>}>
+    
+                </SidebarWithHeader>
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />          
           <Route
             path="marketplace"
             element={
@@ -75,8 +89,8 @@ function App() {
             }
           />
         </Route>
+
       </Routes>
-      {/* <Footer /> */}
     </>
   );
 }
