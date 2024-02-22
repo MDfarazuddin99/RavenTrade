@@ -7,7 +7,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
+RavenTrade/node_modules
+RavenTradeBackend/.env
+RavenTradeBackend/free.raventrade.client.certificate.with.password.pfx
 dist
 dist-ssr
 *.local
