@@ -3,8 +3,20 @@ const express = require('express');
 const {DocumentStore} = require("ravendb");
 const routes = require('./routes/routes');
 const fs = require("fs");
+const cors = require('cors');
+const fileUpload = require('express-fileupload');
 
 const app = express();
+app.use(cors());
+
+app.use(
+    fileUpload({
+        limits: {
+            fileSize: 10000000,
+        },
+        abortOnLimit: true,
+    })
+);
 
 const ravenDBAuthOptions = {
     certificate: fs.readFileSync("free.raventrade.client.certificate.with.password.pfx"),
@@ -37,6 +49,24 @@ app.get("/status", (request, response) => {
     response.send(status);
 });
 
+
+app.post('/upload', (req, res) => {
+    // Get the file that was set to our field named "image"
+    const images = req.files;
+    console.log(images);
+
+    // If no image submitted, exit
+    if (!images.image) return res.sendStatus(400);
+
+    // If does not have image mime type prevent from uploading
+    // if (/^image/.test(images.image.mimetype)) return res.sendStatus(400);
+
+    // Move the uploaded image to our upload folder
+    images.image.mv(__dirname + '/images/' + images.image.name);
+
+    // All good
+    res.sendStatus(200);
+});
 
 
 

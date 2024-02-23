@@ -1,367 +1,293 @@
-"use client";
-
-import { useState } from "react";
+import React, {useState} from 'react';
 import {
-  Progress,
-  Box,
-  ButtonGroup,
-  Button,
-  Heading,
-  Flex,
-  FormControl,
-  GridItem,
-  FormLabel,
-  Input,
-  Select,
-  SimpleGrid,
-  InputLeftAddon,
-  InputGroup,
-  Textarea,
-  FormHelperText,
-  InputRightElement,
-} from "@chakra-ui/react";
+    Box,
+    Button,
+    FormControl,
+    FormLabel,
+    Input,
+    Stack,
+    useToast,
+    Image,
+    Flex,
+    InputGroup,
+    InputRightAddon,
+    Text,
+    Center, Heading, VStack, Select, Checkbox
+} from '@chakra-ui/react';
+import {Formik, Field} from 'formik';
+import * as Yup from 'yup';
+import backend from "../config.js";
 
-import { useToast } from "@chakra-ui/react";
+function AddItem() {
+    const toast = useToast();
+    const [imagePreviews, setImagePreviews] = useState([]);
 
-const Form1 = () => {
-  const [show, setShow] = useState(false);
-  const handleClick = () => setShow(!show);
-  return (
-    <>
-      <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
-        User Registration
-      </Heading>
-      <Flex>
-        <FormControl mr="5%">
-          <FormLabel htmlFor="first-name" fontWeight={"normal"}>
-            First name
-          </FormLabel>
-          <Input id="first-name" placeholder="First name" />
-        </FormControl>
+    const validationSchema = Yup.object().shape({
+        name: Yup.string().required('Name is required'),
+        description: Yup.string().required('Description is required'),
+        category: Yup.string().required('Category is required'),
+        street: Yup.string().required('Street is required'),
+        city: Yup.string().required('City is required'),
+        state: Yup.string().required('State is required'),
+        zipcode: Yup.string().required('Zipcode is required'),
+        lat: Yup.number().typeError('Latitude must be a number').required('Latitude is required'),
+        long: Yup.number().typeError('Longitude must be a number').required('Longitude is required'),
+        isGift: Yup.boolean().typeError("Is Gift must be boolean")
+    });
 
-        <FormControl>
-          <FormLabel htmlFor="last-name" fontWeight={"normal"}>
-            Last name
-          </FormLabel>
-          <Input id="last-name" placeholder="First name" />
-        </FormControl>
-      </Flex>
-      <FormControl mt="2%">
-        <FormLabel htmlFor="email" fontWeight={"normal"}>
-          Email address
-        </FormLabel>
-        <Input id="email" type="email" />
-        <FormHelperText>We&apos;ll never share your email.</FormHelperText>
-      </FormControl>
+    const handleImageChange = (event, setFieldValue) => {
+        const files = event.target.files;
+        setFieldValue("images", files); // Update Formik's state
+        const imageFiles = Array.from(files);
 
-      <FormControl>
-        <FormLabel htmlFor="password" fontWeight={"normal"} mt="2%">
-          Password
-        </FormLabel>
-        <InputGroup size="md">
-          <Input
-            pr="4.5rem"
-            type={show ? "text" : "password"}
-            placeholder="Enter password"
-          />
-          <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size="sm" onClick={handleClick}>
-              {show ? "Hide" : "Show"}
-            </Button>
-          </InputRightElement>
-        </InputGroup>
-      </FormControl>
-    </>
-  );
-};
+        const newImagePreviews = imageFiles.map(file => ({
+            name: file.name,
+            url: URL.createObjectURL(file)
+        }));
 
-const Form2 = () => {
-  return (
-    <>
-      <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
-        User Details
-      </Heading>
-      <FormControl as={GridItem} colSpan={[6, 3]}>
-        <FormLabel
-          htmlFor="country"
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: "gray.50",
-          }}
-        >
-          Country / Region
-        </FormLabel>
-        <Select
-          id="country"
-          name="country"
-          autoComplete="country"
-          placeholder="Select option"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-        >
-          <option>United States</option>
-          <option>Canada</option>
-          <option>Mexico</option>
-        </Select>
-      </FormControl>
+        setImagePreviews(newImagePreviews);
+    };
 
-      <FormControl as={GridItem} colSpan={6}>
-        <FormLabel
-          htmlFor="street_address"
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: "gray.50",
-          }}
-          mt="2%"
-        >
-          Street address
-        </FormLabel>
-        <Input
-          type="text"
-          name="street_address"
-          id="street_address"
-          autoComplete="street-address"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-        />
-      </FormControl>
-
-      <FormControl as={GridItem} colSpan={[6, 6, null, 2]}>
-        <FormLabel
-          htmlFor="city"
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: "gray.50",
-          }}
-          mt="2%"
-        >
-          City
-        </FormLabel>
-        <Input
-          type="text"
-          name="city"
-          id="city"
-          autoComplete="city"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-        />
-      </FormControl>
-
-      <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
-        <FormLabel
-          htmlFor="state"
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: "gray.50",
-          }}
-          mt="2%"
-        >
-          State / Province
-        </FormLabel>
-        <Input
-          type="text"
-          name="state"
-          id="state"
-          autoComplete="state"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-        />
-      </FormControl>
-
-      <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
-        <FormLabel
-          htmlFor="postal_code"
-          fontSize="sm"
-          fontWeight="md"
-          color="gray.700"
-          _dark={{
-            color: "gray.50",
-          }}
-          mt="2%"
-        >
-          ZIP / Postal
-        </FormLabel>
-        <Input
-          type="text"
-          name="postal_code"
-          id="postal_code"
-          autoComplete="postal-code"
-          focusBorderColor="brand.400"
-          shadow="sm"
-          size="sm"
-          w="full"
-          rounded="md"
-        />
-      </FormControl>
-    </>
-  );
-};
-
-const Form3 = () => {
-  return (
-    <>
-      <Heading w="100%" textAlign={"center"} fontWeight="normal">
-        Social Handles
-      </Heading>
-      <SimpleGrid columns={1} spacing={6}>
-        <FormControl as={GridItem} colSpan={[3, 2]}>
-          <FormLabel
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: "gray.50",
-            }}
-          >
-            Website
-          </FormLabel>
-          <InputGroup size="sm">
-            <InputLeftAddon
-              bg="gray.50"
-              _dark={{
-                bg: "gray.800",
-              }}
-              color="gray.500"
-              rounded="md"
-            >
-              http://
-            </InputLeftAddon>
-            <Input
-              type="tel"
-              placeholder="www.example.com"
-              focusBorderColor="brand.400"
-              rounded="md"
-            />
-          </InputGroup>
-        </FormControl>
-
-        <FormControl id="email" mt={1}>
-          <FormLabel
-            fontSize="sm"
-            fontWeight="md"
-            color="gray.700"
-            _dark={{
-              color: "gray.50",
-            }}
-          >
-            About
-          </FormLabel>
-          <Textarea
-            placeholder="you@example.com"
-            rows={3}
-            shadow="sm"
-            focusBorderColor="brand.400"
-            fontSize={{
-              sm: "sm",
-            }}
-          />
-          <FormHelperText>
-            Brief description for your profile. URLs are hyperlinked.
-          </FormHelperText>
-        </FormControl>
-      </SimpleGrid>
-    </>
-  );
-};
-
-export default function AddItem() {
-  const toast = useToast();
-  const [step, setStep] = useState(1);
-  const [progress, setProgress] = useState(33.33);
-
-  return (
-    <Flex h="80vh" w="100%" bg="white" justifyContent={'center'} alignItems={'center'}>
-      <Box
-        bg="white"
-        borderWidth="1px"
-        rounded="lg"
-        shadow="1px 1px 3px rgba(0,0,0,0.3)"
-        w="60%"
-        p={6}
-        as="form"
-      >
-        <Progress
-          hasStripe
-          value={progress}
-          mb="5%"
-          mx="5%"
-          isAnimated
-        ></Progress>
-        {step === 1 ? <Form1 /> : step === 2 ? <Form2 /> : <Form3 />}
-        <ButtonGroup mt="5%" w="100%">
-          <Flex w="100%" justifyContent="space-between">
-            <Flex>
-              <Button
-                onClick={() => {
-                  setStep(step - 1);
-                  setProgress(progress - 33.33);
-                }}
-                isDisabled={step === 1}
-                colorScheme="teal"
-                variant="solid"
-                w="7rem"
-                mr="5%"
-              >
-                Back
-              </Button>
-              <Button
-                w="7rem"
-                isDisabled={step === 3}
-                onClick={() => {
-                  setStep(step + 1);
-                  if (step === 3) {
-                    setProgress(100);
-                  } else {
-                    setProgress(progress + 33.33);
-                  }
-                }}
-                colorScheme="teal"
-                variant="outline"
-              >
-                Next
-              </Button>
-            </Flex>
-            {step === 3 ? (
-              <Button
-                w="7rem"
-                colorScheme="red"
-                variant="solid"
-                onClick={() => {
-                  toast({
-                    title: "Account created.",
-                    description: "We've created your account for you.",
+    const handleCurrentLocation = (setFieldValue) => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                setFieldValue('lat', position.coords.latitude);
+                setFieldValue('long', position.coords.longitude);
+                toast({
+                    title: "Location obtained",
+                    description: "Current location has been set.",
                     status: "success",
-                    duration: 3000,
+                    duration: 5000,
                     isClosable: true,
-                  });
-                }}
-              >
-                Submit
-              </Button>
-            ) : null}
-          </Flex>
-        </ButtonGroup>
-      </Box>
-    </Flex>
-  );
+                });
+            }, (error) => {
+                toast({
+                    title: "Error obtaining location",
+                    description: error.message,
+                    status: "error",
+                    duration: 9000,
+                    isClosable: true,
+                });
+            });
+        } else {
+            toast({
+                title: "Geolocation is not supported by this browser.",
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+            });
+        }
+    };
+
+    return (
+        <VStack spacing={8} mt={15}>
+            <Heading as="h2" size="xl" textAlign="center">Create a New Listing</Heading>
+            <Center width="full">
+                <Box p={15} shadow="md" borderWidth="1px" w={{base: "100%", md: "80%", lg: "30%"}}>
+                    <Formik
+                        initialValues={{
+                            name: '',
+                            description: '',
+                            category: '',
+                            images: null,
+                            street: '',
+                            city: '',
+                            state: '',
+                            zipcode: '',
+                            lat: '',
+                            long: '',
+                            is_gift: false
+                        }}
+                        validationSchema={validationSchema}
+                        onSubmit={(values, actions) => {
+                            console.log(values.images)
+                            const formData = new FormData();
+                            formData.append('user_id', values.user_id);
+                            formData.append('street', values.street);
+                            formData.append('city', values.city);
+                            formData.append('state', values.state);
+                            formData.append('zipcode', values.zipcode);
+                            formData.append('lat', values.lat);
+                            formData.append('long', values.long);
+                            formData.append('name', values.name);
+                            formData.append('description', values.description);
+                            formData.append('collection', values.category);
+                            formData.append('is_gift', values.is_gift);
+
+                            for (const image of  values.images) {
+                                formData.append('file', image)
+                            }
+                            backend.post('/createItem', formData)
+                                .then((response) => {
+                                    console.log("booking successful and : " + response.data.id);
+                                }).catch(() => {
+                            });
+
+                            toast({
+                                title: "Listing submitted.",
+                                description: "Your listing has been submitted successfully.",
+                                status: "success",
+                                duration: 5000,
+                                isClosable: true,
+                            });
+                            actions.setSubmitting(false);
+                        }}
+                    >
+                        {({setFieldValue, handleSubmit, errors, touched}) => (
+                            <form onSubmit={handleSubmit}>
+                                <Stack spacing={4}>
+                                    <Field name="name">
+                                        {({field}) => (
+                                            <FormControl isInvalid={errors.name && touched.name}>
+                                                <FormLabel>Name</FormLabel>
+                                                <Input {...field} placeholder="Name of the item"/>
+                                                {errors.name && touched.name ?
+                                                    <Text color="red.500">{errors.name}</Text> : null}
+                                            </FormControl>
+                                        )}
+                                    </Field>
+
+                                    <Field name="description">
+                                        {({field}) => (
+                                            <FormControl isInvalid={errors.description && touched.description}>
+                                                <FormLabel>Description</FormLabel>
+                                                <Input {...field} placeholder="Description of the item"/>
+                                                {errors.description && touched.description ?
+                                                    <Text color="red.500">{errors.description}</Text> : null}
+                                            </FormControl>
+                                        )}
+                                    </Field>
+
+                                    <Field name="category">
+                                        {({field, form}) => (
+                                            <FormControl isInvalid={form.errors.category && form.touched.category}>
+                                                <FormLabel>Category</FormLabel>
+                                                <Select {...field} placeholder="Select category">
+                                                    <option value="electronics">Electronics</option>
+                                                    <option value="furniture">Furniture</option>
+                                                    <option value="clothing">Clothing</option>
+                                                    <option value="books">Books</option>
+                                                    <option value="toys">Toys</option>
+                                                </Select>
+                                                {form.errors.category && form.touched.category ? (
+                                                    <Text color="red.500">{form.errors.category}</Text>
+                                                ) : null}
+                                            </FormControl>
+                                        )}
+                                    </Field>
+
+                                    <FormControl>
+                                        <FormLabel>Images</FormLabel>
+                                        <Input type="file" multiple
+                                               onChange={(event) => handleImageChange(event, setFieldValue)}/>
+                                        <Flex mt={2}>
+                                            {imagePreviews.map((image, index) => (
+                                                <Image key={index} src={image.url} alt={image.name} boxSize="100px"
+                                                       objectFit="cover" mr={2}/>
+                                            ))}
+                                        </Flex>
+                                    </FormControl>
+
+                                    <Field name="street">
+                                        {({field}) => (
+                                            <FormControl isInvalid={errors.street && touched.street}>
+                                                <FormLabel>Street</FormLabel>
+                                                <Input {...field} placeholder="Street address"/>
+                                                {errors.street && touched.street ?
+                                                    <Text color="red.500">{errors.street}</Text> : null}
+                                            </FormControl>
+                                        )}
+                                    </Field>
+
+                                    <Field name="city">
+                                        {({field}) => (
+                                            <FormControl isInvalid={errors.city && touched.city}>
+                                                <FormLabel>City</FormLabel>
+                                                <Input {...field} placeholder="City"/>
+                                                {errors.city && touched.city ?
+                                                    <Text color="red.500">{errors.city}</Text> : null}
+                                            </FormControl>
+                                        )}
+                                    </Field>
+
+                                    <Field name="state">
+                                        {({field}) => (
+                                            <FormControl isInvalid={errors.state && touched.state}>
+                                                <FormLabel>State</FormLabel>
+                                                <Input {...field} placeholder="State"/>
+                                                {errors.state && touched.state ?
+                                                    <Text color="red.500">{errors.state}</Text> : null}
+                                            </FormControl>
+                                        )}
+                                    </Field>
+
+                                    <Field name="zipcode">
+                                        {({field}) => (
+                                            <FormControl isInvalid={errors.zipcode && touched.zipcode}>
+                                                <FormLabel>Zipcode</FormLabel>
+                                                <Input {...field} placeholder="Zipcode"/>
+                                                {errors.zipcode && touched.zipcode ?
+                                                    <Text color="red.500">{errors.zipcode}</Text> : null}
+                                            </FormControl>
+                                        )}
+                                    </Field>
+
+                                    <Field name="lat">
+                                        {({field}) => (
+                                            <FormControl isInvalid={errors.lat && touched.lat}>
+                                                <FormLabel>Latitude</FormLabel>
+                                                <InputGroup>
+                                                    <Input {...field} placeholder="Latitude"/>
+                                                    <InputRightAddon children={<Button size="sm"
+                                                                                       onClick={() => handleCurrentLocation(setFieldValue)}>Current</Button>}/>
+                                                </InputGroup>
+                                                {errors.lat && touched.lat ?
+                                                    <Text color="red.500">{errors.lat}</Text> : null}
+                                            </FormControl>
+                                        )}
+                                    </Field>
+
+                                    <Field name="long">
+                                        {({field}) => (
+                                            <FormControl isInvalid={errors.long && touched.long}>
+                                                <FormLabel>Longitude</FormLabel>
+                                                <InputGroup>
+                                                    <Input {...field} placeholder="Longitude"/>
+                                                    <InputRightAddon children={<Button size="sm"
+                                                                                       onClick={() => handleCurrentLocation(setFieldValue)}>Current</Button>}/>
+                                                </InputGroup>
+                                                {errors.long && touched.long ?
+                                                    <Text color="red.500">{errors.long}</Text> : null}
+                                            </FormControl>
+                                        )}
+                                    </Field>
+
+                                    <Field name="isGift">
+                                        {({field, form}) => (
+                                            <FormControl isInvalid={form.errors.isGift && form.touched.isGift}
+                                                         display="flex" alignItems="center">
+                                                <Checkbox {...field} id="isGift" isChecked={field.value}>
+                                                    Is this item a gift?
+                                                </Checkbox>
+                                                {form.errors.isGift && form.touched.isGift ? (
+                                                    <Text color="red.500">{form.errors.isGift}</Text>
+                                                ) : null}
+                                            </FormControl>
+                                        )}
+                                    </Field>
+
+                                    <Button mt={4} colorScheme="teal" type="submit" isLoading={false}>
+                                        Submit Listing
+                                    </Button>
+                                </Stack>
+                            </form>
+                        )}
+                    </Formik>
+                </Box>
+            </Center>
+        </VStack>
+    );
 }
+
+export default AddItem;
+
