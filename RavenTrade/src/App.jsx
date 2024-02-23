@@ -19,7 +19,7 @@ function App() {
           path="/"
           element={
             <ProtectedRoute
-              component={<MainLayout childComponent={<Hero />} />}
+              component={<MainLayout childComponent={<Login />} />}
             />
           }
         />
