@@ -3,11 +3,10 @@ const {DocumentStore, PointField} = require("ravendb");
 const fs = require('fs');
 const path = require('path');
 
-// Get the parent directory of the current directory
-const parentDir = path.dirname(__dirname);
+
 
 // Define the target directory for images within the parent directory
-const imagesDir = path.join("/Users/anjan/WebstormProjects/RavenTrade/RavenTrade/public/static/", 'images');
+const imagesDir = path.join("../RavenTrade/public/static/", 'images');
 
 // Check if the images directory exists, if not, create it
 if (!fs.existsSync(imagesDir)) {
