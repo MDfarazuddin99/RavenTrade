@@ -2,7 +2,12 @@ require('dotenv').config();
 const express = require('express');
 const {DocumentStore} = require("ravendb");
 const routes = require('./routes/routes');
+const loginRoutes = require("./routes/login/userLogin")
+const session = require('express-session')
+const passport = require('passport')
 const fs = require("fs");
+
+require('./auth/auth')
 
 const app = express();
 
@@ -17,7 +22,10 @@ store.conventions.findCollectionNameForObjectLiteral = entity => entity["collect
 store.initialize();
 
 // Middleware to attach store to each request
+app.use(session({secret: process.env.SESSION_SECRET}))
 app.use(express.json());
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use((req, res, next) => {
     req.store = store
@@ -25,6 +33,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api', routes)
+app.use('/login', loginRoutes)
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

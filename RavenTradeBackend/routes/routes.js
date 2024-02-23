@@ -55,7 +55,7 @@ router.get('/get/:collection', async (req, res) => {
                 lat, long)
             .all();
         res.status(201).json({items: itemsWithinRadius});
-    } catch (error) {
+    } catch (error) {P
         console.log("Error getting Items:", error)
     }
 
