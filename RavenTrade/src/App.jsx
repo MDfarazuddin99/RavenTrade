@@ -8,7 +8,7 @@ import AddItem from "./componenents/AddItem";
 import MainLayout from "./pages/MainLayout.jsx";
 import ProtectedRoute from "./componenents/ProtectedRoute.jsx";
 import ProductPage from "./pages/ProductPage.jsx";
-import Hero from "./componenents/Hero.jsx"
+import Hero from "./componenents/Hero.jsx";
 function App() {
   return (
     <>
@@ -52,7 +52,7 @@ function App() {
         />
 
         <Route
-          path="/product"
+          path="/product/:product_category/:product_id"
           element={
             <ProtectedRoute
               component={<MainLayout childComponent={<ProductPage />} />}
@@ -60,8 +60,6 @@ function App() {
           }
         />
       </Routes>
-
-
     </>
   );
 }

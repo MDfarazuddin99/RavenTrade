@@ -88,7 +88,7 @@ router.post('/get/:collection', async (req, res) => {
 })
 
 
-router.get('/getItem', async (req, res) => {
+router.post('/getItem', async (req, res) => {
 
     try {
         session = req.store.openSession();

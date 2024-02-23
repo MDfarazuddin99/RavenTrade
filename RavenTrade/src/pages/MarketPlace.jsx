@@ -102,16 +102,14 @@ const MarketPlace = (props) => {
                 >
                     <Heading mb={4}>Near By Available Items</Heading>
 
-                    <Box mb={5} w="95%">
+                    <Box mb={5}>
                         <FormControl as="fieldset">
-
                             <RadioGroup  value={category} defaultValue="all" onChange={handleCategoryChange}>
                                 <HStack spacing="50px">
                                     <Radio value="clothes">Clothes</Radio>
                                     <Radio value="Electronics">Electronics</Radio>
                                     <Radio value="furniture">Furniture</Radio>
                                     <Radio value="giftcards">Gift Cards</Radio>
-                                    <Radio value="all"> All</Radio>
                                 </HStack>
                             </RadioGroup>
                             <Flex mt={2}>

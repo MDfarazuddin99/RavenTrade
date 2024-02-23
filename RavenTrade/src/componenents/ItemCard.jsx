@@ -45,7 +45,7 @@ const ItemCard = (props) => {
           <Button
             variant="solid"
             colorScheme="blue"
-            onClick={() => handleClick("/product")}
+            onClick={() => handleClick(`/product/${item.id}`)}
           >
             View Details
           </Button>

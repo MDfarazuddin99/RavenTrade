@@ -24,13 +24,34 @@ const settings = {
   slidesToShow: 1,
   slidesToScroll: 1,
 };
+import backend from "../config.js";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function ProductDetails() {
+import { useParams } from "react-router-dom";
+
+import axios from "axios";
+
+export default function ProductDetails(props) {
   // As we have used custom buttons, we need a reference variable to
   // change the state
   const [slider, setSlider] = useState(null); //<Slider | null>(null);
+  const [prod, setProd] = useState(null);
+
+  const { product_category, product_id } = useParams();
+  const product_param = `${product_category}/${product_id}`;
+
+  useEffect(() => {
+    backend
+      .post("/getItem", { id: product_param })
+      .then((response) => {
+        setProd(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   // These are the breakpoints which changes the position of the
   // buttons as the screen size changes
@@ -47,80 +68,83 @@ export default function ProductDetails() {
 
   return (
     <Flex w="70%" flexDir={"column"}>
-      <Box
-        position={"relative"}
-        height={"600px"}
-        width={"100%"}
-        overflow={"hidden"}
-      >
-        {/* CSS files for react-slick */}
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-        />
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-        />
-        {/* Left Icon */}
-        <IconButton
-          aria-label="left-arrow"
-          colorScheme="messenger"
-          borderRadius="full"
-          position="absolute"
-          left={side}
-          top={top}
-          transform={"translate(0%, -50%)"}
-          zIndex={2}
-          onClick={() => slider?.slickPrev()}
-        >
-          <BiLeftArrowAlt />
-        </IconButton>
-        {/* Right Icon */}
-        <IconButton
-          aria-label="right-arrow"
-          colorScheme="messenger"
-          borderRadius="full"
-          position="absolute"
-          right={side}
-          top={top}
-          transform={"translate(0%, -50%)"}
-          zIndex={2}
-          onClick={() => slider?.slickNext()}
-        >
-          <BiRightArrowAlt />
-        </IconButton>
-        {/* Slider */}
-        <Slider {...settings} ref={(slider) => setSlider(slider)}>
-          {cards.map((url, index) => (
-            <Box
-              key={index}
-              height={"6xl"}
-              position="relative"
-              //   backgroundPosition="center"
-              //   backgroundRepeat="no-repeat"
-              //   backgroundSize="cover"
-              backgroundImage={`url(${url})`}
+      {prod ? (
+        <div>
+          <Box
+            position={"relative"}
+            height={"600px"}
+            width={"100%"}
+            overflow={"hidden"}
+          >
+            {/* CSS files for react-slick */}
+            <link
+              rel="stylesheet"
+              type="text/css"
+              href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
             />
-          ))}
-        </Slider>
-      </Box>
-      <Box p={"2%"} bg="gree.200" w="full" h="30vh" overflowY="auto">
-        <Heading>
-          Portable Record Player
-          <Badge colorScheme="purple" ml={5} fontSize={"xl"}>
-            Electronics
-          </Badge>
-        </Heading>
+            <link
+              rel="stylesheet"
+              type="text/css"
+              href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+            />
+            {/* Left Icon */}
+            <IconButton
+              aria-label="left-arrow"
+              colorScheme="messenger"
+              borderRadius="full"
+              position="absolute"
+              left={side}
+              top={top}
+              transform={"translate(0%, -50%)"}
+              zIndex={2}
+              onClick={() => slider?.slickPrev()}
+            >
+              <BiLeftArrowAlt />
+            </IconButton>
+            {/* Right Icon */}
+            <IconButton
+              aria-label="right-arrow"
+              colorScheme="messenger"
+              borderRadius="full"
+              position="absolute"
+              right={side}
+              top={top}
+              transform={"translate(0%, -50%)"}
+              zIndex={2}
+              onClick={() => slider?.slickNext()}
+            >
+              <BiRightArrowAlt />
+            </IconButton>
+            {/* Slider */}
+            <Slider {...settings} ref={(slider) => setSlider(slider)}>
+              {cards.map((url, index) => (
+                <Box
+                  key={index}
+                  height={"6xl"}
+                  position="relative"
+                  //   backgroundPosition="center"
+                  //   backgroundRepeat="no-repeat"
+                  //   backgroundSize="cover"
+                  backgroundImage={`url(${url})`}
+                />
+              ))}
+            </Slider>
+          </Box>
+          <Box p={"2%"} bg="gree.200" w="full" h="30vh" overflowY="auto">
+            <Heading>
+              {prod.name}
+              <Badge colorScheme="purple" ml={5} fontSize={"xl"}>
+                {prod.collection}
+              </Badge>
+            </Heading>
 
-        <Text size={"lg"}>
-          Take your tunes on the go with this portable record player from the
-          1980s. A unique blend of vintage charm and portability.
-        </Text>
-        <Text>Address: 345 Queen Anne Ave, Seattle, WA, 98109</Text>
-      </Box>
+            <Text size={"lg"}>{prod.description}</Text>
+            <Text>{`${prod.address.street} ${prod.address.city} ${prod.address.state} ${prod.address.zipcode}`}</Text>
+          </Box>
+        </div>
+      ) : 
+        ""
+      }
     </Flex>
   );
 }
