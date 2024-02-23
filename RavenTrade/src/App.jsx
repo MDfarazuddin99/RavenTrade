@@ -15,14 +15,15 @@ function App() {
       <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route
+        <Route path="/" element={<Login />} />
+{/*         <Route
           path="/"
           element={
             <ProtectedRoute
               component={<MainLayout childComponent={<Login />} />}
             />
           }
-        />
+        /> */}
 
         <Route
           path="/marketplace"
