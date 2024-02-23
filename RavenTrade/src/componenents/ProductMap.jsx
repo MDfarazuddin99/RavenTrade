@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 
 import GoogleMapReact from "google-map-react";
 
-const Product = () => {
+const ProductMap = () => {
   const defaultProps = {
     center: {
       lat: 37.3360820543542,
@@ -12,7 +12,7 @@ const Product = () => {
   };
 
   return (
-    <Box h="100vh">
+    <Box px={1} w="30%">
       <div style={{ height: "100vh", width: "100%" }}>
         <GoogleMapReact
           bootstrapURLKeys={{
@@ -21,11 +21,10 @@ const Product = () => {
           defaultCenter={defaultProps.center}
           defaultZoom={defaultProps.zoom}
         >
-          {/* <AnyReactComponent lat={59.955413} lng={30.337844} text="My Marker" /> */}
         </GoogleMapReact>
       </div>
     </Box>
   );
 };
 
-export default Product;
+export default ProductMap;

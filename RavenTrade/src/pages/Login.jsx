@@ -66,7 +66,7 @@ const login = () => {
                   _hover={{
                     bg: "blue.500",
                   }}
-                  onClick={()=>handleClick('/home')}
+                  onClick={()=>handleClick('/')}
                 >
                   Sign in
                 </Button>

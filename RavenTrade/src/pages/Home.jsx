@@ -8,7 +8,9 @@ const home = () => {
   return (
     <div>
       
-      <Box minH={"60vh"} bg="gray.100"></Box>
+      <Box minH={"60vh"} bg="gray.100">
+        
+      </Box>
       
     </div>
   );

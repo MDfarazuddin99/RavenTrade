@@ -27,6 +27,9 @@ import mapMarkerIcon from "../assets/map_marker.png";
 import itemMarkerIcon from "../assets/item_marker.png";
 import {useEffect, useState} from "react";
 import backend from "../config.js";
+import { NavLink, useNavigate } from "react-router-dom";
+
+import { useState } from "react";
 
 const Marker = () => (
     <div
