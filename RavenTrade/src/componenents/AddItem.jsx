@@ -163,11 +163,10 @@ function AddItem() {
                                             <FormControl isInvalid={form.errors.category && form.touched.category}>
                                                 <FormLabel>Category</FormLabel>
                                                 <Select {...field} placeholder="Select category">
-                                                    <option value="electronics">Electronics</option>
-                                                    <option value="furniture">Furniture</option>
-                                                    <option value="clothing">Clothing</option>
-                                                    <option value="books">Books</option>
-                                                    <option value="toys">Toys</option>
+                                                    <option value="Electronics">Electronics</option>
+                                                    <option value="Furniture">Furniture</option>
+                                                    <option value="Clothes">Clothing</option>
+                                                    <option value="Giftcards">GiftCard</option>
                                                 </Select>
                                                 {form.errors.category && form.touched.category ? (
                                                     <Text color="red.500">{form.errors.category}</Text>

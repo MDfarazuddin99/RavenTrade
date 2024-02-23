@@ -101,10 +101,10 @@ const MarketPlace = (props) => {
                         <FormControl as="fieldset">
                             <RadioGroup value={category} defaultValue="all" onChange={handleCategoryChange}>
                                 <HStack spacing="50px">
-                                    <Radio value="clothes">Clothes</Radio>
+                                    <Radio value="Clothes">Clothes</Radio>
                                     <Radio value="Electronics">Electronics</Radio>
-                                    <Radio value="furniture">Furniture</Radio>
-                                    <Radio value="giftcards">Gift Cards</Radio>
+                                    <Radio value="Furniture">Furniture</Radio>
+                                    <Radio value="Giftcards">GiftCards</Radio>
                                 </HStack>
                             </RadioGroup>
                             <Flex mt={2}>
