@@ -18,6 +18,9 @@ app.use(
     })
 );
 
+app.use(express.static('public')); // Serve static files from public directory
+
+
 const ravenDBAuthOptions = {
     certificate: fs.readFileSync("free.raventrade.client.certificate.with.password.pfx"),
     type: "pfx",

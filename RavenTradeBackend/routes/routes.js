@@ -7,7 +7,7 @@ const path = require('path');
 const parentDir = path.dirname(__dirname);
 
 // Define the target directory for images within the parent directory
-const imagesDir = path.join(parentDir, 'images');
+const imagesDir = path.join("/Users/anjan/WebstormProjects/RavenTrade/RavenTrade/public/static/", 'images');
 
 // Check if the images directory exists, if not, create it
 if (!fs.existsSync(imagesDir)) {
@@ -15,6 +15,7 @@ if (!fs.existsSync(imagesDir)) {
 }
 
 const router = express.Router()
+
 router.post('/register', async (req, res) => {
     try {
         session = req.store.openSession();
@@ -31,6 +32,7 @@ router.post('/register', async (req, res) => {
         console.log("Error Occurred While Creating Item", error)
     }
 })
+
 router.post('/login', async (req, res) => {
     try {
         session = req.store.openSession();
@@ -44,9 +46,11 @@ router.post('/login', async (req, res) => {
         console.log("Error Occurred While Logging In: ", error)
     }
 })
+
 router.post('/createItem', async (req, res) => {
     try {
         session = req.store.openSession();
+        console.log(req.files.file)
         let file_names = req.files.file.map((image) => image.name)
         item = {
             images: file_names,
@@ -112,19 +116,17 @@ router.post('/get/:collection', async (req, res) => {
     }
 })
 
-
 router.post('/getItem', async (req, res) => {
 
     try {
         session = req.store.openSession();
         let item = await session.load(req.body.id)
-        console.log(item,req.body.id);
+        console.log(item, req.body.id);
         res.status(201).json(item);
     } catch (error) {
         console.log("Error getting Item ", req.params.id, error)
     }
 })
-
 
 router.delete('/deleteItem', async (req, res) => {
     try {
@@ -136,7 +138,6 @@ router.delete('/deleteItem', async (req, res) => {
         console.log("Error deleting Item: ", req.body.itemId)
     }
 })
-
 
 router.put('/updateItem', async (req, res) => {
     try {

@@ -1,58 +1,59 @@
 import {
-  Card,
-  Image,
-  Stack,
-  CardBody,
-  Heading,
-  Text,
-  CardFooter,
-  Button,
+    Card,
+    Image,
+    Stack,
+    CardBody,
+    Heading,
+    Text,
+    CardFooter,
+    Button,
 } from "@chakra-ui/react";
 
-import { NavLink, useNavigate } from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 
 // Assuming 'item' is an object that contains 'id', 'description', and possibly other properties you might use
 const ItemCard = (props) => {
-  let item = props.item;
-  const navigateTo = useNavigate();
+    let item = props.item;
+    const basePath = "/public/static/images/"
+    const navigateTo = useNavigate();
 
-  const handleClick = (newPath) => {
-    console.log("button pressed");
-    navigateTo(newPath);
-  };
-  // console.log("Item Card: ", item.description);
-  return (
-    <Card
-      key={item.id}
-      direction={{ base: "column", sm: "row" }}
-      variant="outline"
-      mb={5}
-    >
-      <Image
-        objectFit="cover"
-        maxW={{ base: "100%", sm: "200px" }}
-        src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-        alt="Caffe Latte"
-      />
+    console.log("Images::::", item)
+    const handleClick = (newPath) => {
+        console.log("button pressed");
+        navigateTo(newPath);
+    };
+    // console.log("Item Card: ", item.description);
+    return (
+        <Card
+            key={item.id}
+            direction={{base: "column", sm: "row"}}
+            variant="outline"
+            mb={5}
+        >
+            <Image
+                objectFit="cover"
+                maxW={{base: "100%", sm: "200px"}}
+                src={basePath + item.id + '/' + item.images[0]}
+            />
 
-      <Stack>
-        <CardBody>
-          <Heading size="md">The perfect latte</Heading>
-          <Text py="2">{item.description}</Text>
-        </CardBody>
+            <Stack>
+                <CardBody>
+                    <Heading size="md">{item.name}</Heading>
+                    <Text py="2">{item.description}</Text>
+                </CardBody>
 
-        <CardFooter>
-          <Button
-            variant="solid"
-            colorScheme="blue"
-            onClick={() => handleClick(`/product/${item.id}`)}
-          >
-            View Details
-          </Button>
-        </CardFooter>
-      </Stack>
-    </Card>
-  );
+                <CardFooter>
+                    <Button
+                        variant="solid"
+                        colorScheme="blue"
+                        onClick={() => handleClick(`/product/${item.id}`)}
+                    >
+                        View Details
+                    </Button>
+                </CardFooter>
+            </Stack>
+        </Card>
+    );
 };
 
 export default ItemCard;

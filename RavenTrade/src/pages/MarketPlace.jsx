@@ -27,8 +27,9 @@ import mapMarkerIcon from "../assets/map_marker.png";
 import itemMarkerIcon from "../assets/item_marker.png";
 import {useEffect, useState} from "react";
 import backend from "../config.js";
-import { NavLink, useNavigate } from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import ItemCard from "../componenents/ItemCard.jsx";
+
 const Marker = () => (
     <div
         style={{
@@ -53,14 +54,10 @@ const ItemMarker = () => (
 
 const MarketPlace = (props) => {
 
-
     const [items, setItems] = useState([]);
     const [category, setCategory] = useState("Electronics")
     const [radius, setRadius] = useState(10)
 
-
-
-    
     useEffect(() => {
         backend.post('/get/' + category, {lat: 37.3352, long: -121.8811, radius: radius})
             .then(response => {
@@ -71,7 +68,6 @@ const MarketPlace = (props) => {
                 console.error(error);
             });
     }, [category, radius]);
-
 
     const defaultProps = {
         center: {
@@ -101,10 +97,9 @@ const MarketPlace = (props) => {
                     alignItems="center"
                 >
                     <Heading mb={4}>Near By Available Items</Heading>
-
                     <Box mb={5}>
                         <FormControl as="fieldset">
-                            <RadioGroup  value={category} defaultValue="all" onChange={handleCategoryChange}>
+                            <RadioGroup value={category} defaultValue="all" onChange={handleCategoryChange}>
                                 <HStack spacing="50px">
                                     <Radio value="clothes">Clothes</Radio>
                                     <Radio value="Electronics">Electronics</Radio>
@@ -116,8 +111,9 @@ const MarketPlace = (props) => {
                                 <FormLabel>Search</FormLabel>
                                 <Input placeholder="First name" w="70%"/>
                                 <FormLabel marginLeft="2">Radius (Miles)</FormLabel>
-                                <NumberInput max={500} min={1} value={radius}  w="30%" h="40px" onChange={handleRadiusChange}>
-                                    <NumberInputField />
+                                <NumberInput max={500} min={1} value={radius} w="30%" h="40px"
+                                             onChange={handleRadiusChange}>
+                                    <NumberInputField/>
                                     <NumberInputStepper>
                                         <NumberIncrementStepper/>
                                         <NumberDecrementStepper/>
@@ -129,7 +125,7 @@ const MarketPlace = (props) => {
 
                     <Flex flexDir={"column"} overflowY="auto" w='full'>
                         {items.map((item) => (
-                                <ItemCard key = {item.id}  item = {item}/>                            )
+                            <ItemCard key={item.id} item={item}/>)
                         )}
                     </Flex>
                 </Box>
@@ -150,7 +146,8 @@ const MarketPlace = (props) => {
                         />
                         {items.map((item) => {
                             console.log(item, item.address.location.lat, item.address.location.long)
-                            return <ItemMarker key={item.id} lat={item.address.location.lat} lng={item.address.location.long}/>;
+                            return <ItemMarker key={item.id} lat={item.address.location.lat}
+                                               lng={item.address.location.long}/>;
                         })}
                     </GoogleMapReact>
                 </div>
