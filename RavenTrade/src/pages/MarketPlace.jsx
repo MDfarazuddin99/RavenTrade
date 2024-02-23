@@ -28,6 +28,7 @@ import itemMarkerIcon from "../assets/item_marker.png";
 import {useEffect, useState} from "react";
 import backend from "../config.js";
 import { NavLink, useNavigate } from "react-router-dom";
+import ItemCard from "../componenents/ItemCard.jsx";
 const Marker = () => (
     <div
         style={{
@@ -57,6 +58,9 @@ const MarketPlace = (props) => {
     const [category, setCategory] = useState("Electronics")
     const [radius, setRadius] = useState(10)
 
+
+
+    
     useEffect(() => {
         backend.post('/get/' + category, {lat: 37.3352, long: -121.8811, radius: radius})
             .then(response => {
@@ -125,39 +129,9 @@ const MarketPlace = (props) => {
                         </FormControl>
                     </Box>
 
-                    <Flex flexDir={"column"} overflowY="auto">
+                    <Flex flexDir={"column"} overflowY="auto" w='full'>
                         {items.map((item) => (
-                                <Card
-                                    key={item.id}
-                                    direction={{base: "column", sm: "row"}}
-                                    // overflow="hidden"
-                                    variant="outline"
-                                    mb={5}
-                                >
-                                    <Image
-                                        objectFit="cover"
-                                        maxW={{base: "100%", sm: "200px"}}
-                                        src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-                                        alt="Caffe Latte"
-                                    />
-
-                                    <Stack>
-                                        <CardBody>
-                                            <Heading size="md">The perfect latte</Heading>
-
-                                            <Text py="2">
-                                                {item.description}
-                                            </Text>
-                                        </CardBody>
-
-                                        <CardFooter>
-                                            <Button variant="solid" colorScheme="blue">
-                                                View Details
-                                            </Button>
-                                        </CardFooter>
-                                    </Stack>
-                                </Card>
-                            )
+                                <ItemCard key = {item.id}  item = {item}/>                            )
                         )}
                     </Flex>
                 </Box>
