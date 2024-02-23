@@ -15,35 +15,7 @@ if (!fs.existsSync(imagesDir)) {
 }
 
 const router = express.Router()
-router.post('/register', async (req, res) => {
-    try {
-        session = req.store.openSession();
-        user = {
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            email: req.body.email,
-            password: req.body.password
-        }
-        await session.store(user, req.body.email)
-        await session.saveChanges();
-        res.status(201).json({user_id: user.id, message: "User Registration Successful"});
-    } catch (error) {
-        console.log("Error Occurred While Creating Item", error)
-    }
-})
-router.post('/login', async (req, res) => {
-    try {
-        session = req.store.openSession();
-        let user = await session.load(req.body.email)
-        if (user === null || user.password !== req.body.password) {
-            res.status(201).json({success: false});
-        } else {
-            res.status(201).json({success: true});
-        }
-    } catch (error) {
-        console.log("Error Occurred While Logging In: ", error)
-    }
-})
+
 router.post('/createItem', async (req, res) => {
     try {
         session = req.store.openSession();
@@ -68,14 +40,17 @@ router.post('/createItem', async (req, res) => {
             is_active: true,
             is_gift: req.body.is_gift
         }
+        console.log('Item', item)
         await session.store(item)
         await session.saveChanges();
         res.status(201).json({id: item.id, message: 'Item created successfully.'});
 
         req.files.file.forEach((image) => {
+            // Define the target path for each image
             let item_dir = path.join(imagesDir, item.id);
             fs.mkdirSync(item_dir, {recursive: true});
             const targetPath = path.join(item_dir, image.name);
+            // Move each image to the target path
             image.mv(targetPath, (err) => {
                 if (err) {
                     console.error(`Failed to move file: ${image.name}`, err);
@@ -88,6 +63,7 @@ router.post('/createItem', async (req, res) => {
         console.log("Error Occurred While Creating Item", error)
     }
 })
+
 router.post('/get/:collection', async (req, res) => {
 
     try {
@@ -110,7 +86,6 @@ router.post('/get/:collection', async (req, res) => {
         console.log("Error getting Items:", error)
     }
 })
-<<<<<<< Updated upstream
 
 
 router.get('/getItem', async (req, res) => {
@@ -126,8 +101,6 @@ router.get('/getItem', async (req, res) => {
 })
 
 
-=======
->>>>>>> Stashed changes
 router.delete('/deleteItem', async (req, res) => {
     try {
         session = req.store.openSession();
@@ -138,6 +111,8 @@ router.delete('/deleteItem', async (req, res) => {
         console.log("Error deleting Item: ", req.body.itemId)
     }
 })
+
+
 router.put('/updateItem', async (req, res) => {
     try {
         session = req.store.openSession();
