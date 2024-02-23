@@ -11,7 +11,7 @@ const imagesDir = path.join(parentDir, 'images');
 
 // Check if the images directory exists, if not, create it
 if (!fs.existsSync(imagesDir)) {
-    fs.mkdirSync(imagesDir, { recursive: true });
+    fs.mkdirSync(imagesDir, {recursive: true});
 }
 
 const router = express.Router()
@@ -48,7 +48,7 @@ router.post('/createItem', async (req, res) => {
         req.files.file.forEach((image) => {
             // Define the target path for each image
             let item_dir = path.join(imagesDir, item.id);
-            fs.mkdirSync(item_dir, { recursive: true });
+            fs.mkdirSync(item_dir, {recursive: true});
             const targetPath = path.join(item_dir, image.name);
             // Move each image to the target path
             image.mv(targetPath, (err) => {
@@ -85,8 +85,21 @@ router.post('/get/:collection', async (req, res) => {
     } catch (error) {
         console.log("Error getting Items:", error)
     }
-
 })
+
+
+router.get('/getItem', async (req, res) => {
+
+    try {
+        session = req.store.openSession();
+        let item = await session.load(req.body.id)
+        console.log(item,req.body.id);
+        res.status(201).json(item);
+    } catch (error) {
+        console.log("Error getting Item ", req.params.id, error)
+    }
+})
+
 
 router.delete('/deleteItem', async (req, res) => {
     try {
