@@ -39,12 +39,9 @@ const hero = () => {
               _hover={{
                 bg: "blue.500",
               }}
-              onClick={() => handleClick("/login")}
+              onClick={() => handleClick("/marketplace")}
             >
-              Login
-            </Button>
-            <Button rounded={"full"} onClick={() => handleClick("/signup")}>
-              Register
+              Get Started
             </Button>
           </Stack>
         </Stack>

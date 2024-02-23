@@ -7,8 +7,8 @@ import MarketPlace from "./pages/MarketPlace.jsx";
 import AddItem from "./componenents/AddItem";
 import MainLayout from "./pages/MainLayout.jsx";
 import ProtectedRoute from "./componenents/ProtectedRoute.jsx";
-import Product from "./componenents/Product.jsx";
-
+import ProductPage from "./pages/ProductPage.jsx";
+import Hero from "./componenents/Hero.jsx"
 function App() {
   return (
     <>
@@ -19,7 +19,7 @@ function App() {
           path="/"
           element={
             <ProtectedRoute
-              component={<MainLayout childComponent={<Home />} />}
+              component={<MainLayout childComponent={<Hero />} />}
             />
           }
         />
@@ -55,11 +55,13 @@ function App() {
           path="/product"
           element={
             <ProtectedRoute
-              component={<MainLayout childComponent={<Product />} />}
+              component={<MainLayout childComponent={<ProductPage />} />}
             />
           }
         />
       </Routes>
+
+
     </>
   );
 }
